@@ -1,2 +1,93 @@
-<center><h1>Garuda Anon Security</h1>
-<h1>404 Error, Page Not Found !</h1></center>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>404 Not Found</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #111;
+      font-family: 'Arial', sans-serif;
+      color: #fff;
+    }
+
+    .not-found {
+      text-align: center;
+    }
+
+    .text-404 {
+      font-size: 120px;
+      font-weight: bold;
+      margin: 0;
+    }
+
+    .text-description {
+      font-size: 24px;
+      margin: 10px 0;
+    }
+
+    .gif-container {
+      position: relative;
+      width: 300px;
+      height: 300px;
+      overflow: hidden;
+    }
+
+    .gif-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 30px;
+      font-weight: bold;
+      color: #fff;
+      z-index: 1;
+    }
+
+    .gif-animation {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      height: 100%;
+      background-image: url('https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif');
+      background-size: cover;
+      background-position: center;
+      filter: grayscale(1) brightness(0.6);
+      z-index: 0;
+      animation: rotate 8s linear infinite, scale 8s alternate infinite;
+    }
+
+    @keyframes rotate {
+      0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+      }
+      100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+      }
+    }
+
+    @keyframes scale {
+      0% {
+        transform: translate(-50%, -50%) scale(1);
+      }
+      100% {
+        transform: translate(-50%, -50%) scale(1.2);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="not-found">
+    <p class="text-404">404</p>
+    <p class="text-description">Oops! The page you're looking for was abducted by aliens.</p>
+    <div class="gif-container">
+      <div class="gif-animation"></div>
+      <p class="gif-text">They took it to another dimension.</p>
+    </div>
+  </div>
+</body>
+</html>
