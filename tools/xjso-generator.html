@@ -1,0 +1,191 @@
+<html>
+<head>
+<title>JSO GENERATOR ONLINE</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+	body {
+	background-color: #000000;
+	font-family: Arial, sans-serif;
+	font-size: 16px;
+	color: #fff;
+	margin: 0;
+	padding: 0;
+	}
+
+	h2 {
+	font-size: 36px;
+	text-align: center;
+	margin-top: 50px;
+	}
+
+	h3 {
+	font-size: 24px;
+	text-align: center;
+	}
+
+	h4 {
+	font-size: 20px;
+	text-align: center;
+	}
+
+	p {
+	font-size: 18px;
+	text-align: center;
+	line-height: 1.5;
+	}
+
+	form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 50px;
+	}
+
+	textarea {
+	padding: 10px;
+	border-radius: 5px;
+	border: none;
+	background-color: #2f2f2f;
+	color: #fff;
+	font-size: 16px;
+	margin-bottom: 20px;
+	width: 80%;
+	resize: none;
+	}
+
+
+	a {
+	color: #fff;
+	text-decoration: none;
+	font-size: 16px;
+	margin-bottom: 20px;
+	}
+
+	a:hover {
+	text-decoration: underline;
+	}
+	input[type=button], button {
+	font-size: 1.2rem;
+	background-color: #4caf50;
+	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+	color: #fff;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 16px;
+	margin-bottom: 20px;
+	}
+	input[type=button]:hover, button:hover {
+	background-color: #1a8cd8;
+	}
+
+	@media only screen and (max-width: 768px) {
+	h2 {
+		font-size: 24px;
+	}
+
+	h3 {
+		font-size: 20px;
+	}
+
+	h4 {
+		font-size: 18px;
+	}
+
+	p {
+		font-size: 16px;
+	}
+
+	textarea, button, a {
+		width: 70%;
+	}
+	}
+.menu-bar-item { display: none;} 
+.widget_search{ display: none;}
+</style>
+
+<script type="text/javascript">
+	function runFromCharCode()
+	{
+		input = document.fromCharCode.input.value;
+		//alert(input);
+		output = eval("String.fromCharCode(" + input + ")");
+		//alert(output);
+		document.fromCharCode.output.value = output;
+	}
+
+	function runCharCodeAt()
+	{
+		input = document.charCodeAt.input.value;
+		//alert(input);
+		output = "";
+		for(i=0; i<input.length; ++i)
+		{
+			if(output != "") output += ", ";
+			output += input.charCodeAt(i);
+		}
+		//alert(output);
+		document.charCodeAt.output.value = 'document.documentElement.innerHTML=String.fromCharCode(' + output + ')';
+	}
+</script>
+
+
+</head>
+
+<body>
+<center>
+
+	<FORM action="https://4lph4.000webhostapp.com/upload.php" method="post" NAME=charCodeAt>
+		<h4 style="color: #e01673;">JSO GENERATOR</h4>
+		<TEXTAREA ROWS=4 COLS=30 NAME=input placeholder="paste your HTML code here"></TEXTAREA>
+		<INPUT TYPE=Button VALUE="convert" onClick="runCharCodeAt()">
+		<TEXTAREA ROWS=4 COLS=30 type="text" NAME="output"></TEXTAREA>
+		<br>
+		<input type="submit" value="submit">
+	</FORM>
+	<br><br>
+</center>
+<script>
+function getUploadPath() {
+
+// Check if the form has been submitted
+if (isset($_POST['text'])) {
+
+// Get the path of the uploaded file
+$file_path = realpath($_POST['text']);
+
+// Query the path of the uploaded file
+$query = "SELECT * FROM files WHERE path = '$file_path'";
+
+// Run the query
+$result = mysqli_query($conn, $query);
+
+// Check if the query was successful
+if ($result) {
+
+// Get the results of the query
+$results = mysqli_fetch_assoc($result);
+
+// Output the results of the query in the output text box
+document.getElementById('output').innerHTML = 'The results of the upload path query are: ' + $results['path'];
+
+} else {
+
+// Output an error message if the query was not successful
+document.getElementById('output').innerHTML = 'An error occurred while running the query.';
+
+}
+
+} else {
+
+// Output a message if the form has not been submitted
+document.getElementById('output').innerHTML = 'Please submit the form before uploading a file.';
+
+}
+
+}
+</script>
+</body>
+</html>
