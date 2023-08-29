@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="ckeditor/ckeditor.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login Page</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+  }
+  .container {
+  margin: 0 auto;
+  position: relative;
+  top: 50%;
+  transform: translateY(50%);
+	width: 300px;
+	background-color: #222;
+ /* padding: 20px; */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    animation: slideIn 1s ease-in-out, glitch 2s infinite;
+  }
+  #mainContent {
+    display: none;
+  }
+  #loginForm {
+      margin-top: 100px;
+  }
+  input[type=text], input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  color: #fff;
+  display: inline-block;
+  border: 1px solid #222;
+  box-sizing: border-box;
+}
+
+  .LoginBTN{
+    background-color: red;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  }
+  .LoginBTN:hover {
+  opacity: 0.8;
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <form id="loginForm">
+    <input type="text" id="username" placeholder="Username" maxlength="10" size="4" required>
+    <br>
+    <input type="password" id="password" placeholder="Password" required>
+    <br>
+    <button class="LoginBTN" type="submit">Login</button>
+  </form>
+</div>
+<div id="mainContent">
+  <!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GANOSEC Team ~ Community</title>
+  <link rel="stylesheet" href="../radio.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="ckeditor/ckeditor.js"></script>
+  <style>
+  form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 50px;
+	}
+	textarea {
+	padding: 10px;
+	border-radius: 15px;
+	border: none;
+	background-color: #2f2f2f2;
+	color: #fff;
+	font-size: 16px;
+	margin-bottom: 20px;
+	width: 80%;
+	resize: none;
+	}
+
+	input[type=button] {
+	font-size: 1.2rem;
+	background-color: #0b0101;
+	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+	color: #fff;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 10px;
+	cursor: pointer;
+	font-size: 16px;
+	margin-bottom: 20px;
+	}
+	input[type=button]:hover {
+	background-color: #ff1100;
+	}
+	input[type=submit] {
+	font-size: 1.2rem;
+	background-color: #0b0101;
+	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+	color: #fff;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 10px;
+	cursor: pointer;
+	font-size: 16px;
+	margin-bottom: 20px;
+	}
+	input[type=submit]:hover {
+	background-color: #ff1100;
+	}
+
+  </style>
+
+  <!--
+    - favicon
+  -->
+  <link rel="shortcut icon" href="../assets/images/logo.ico" type="image/x-icon">
+
+  <!--
+    - custom css link
+  -->
+  <link rel="stylesheet" href="../assets/css/style.css">
+
+  <!--
+    - google font link
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="floating-button" id="musicButton" onclick="toggleMusic()">
+    <div class="icon">اَلْقُرْآنُ‎</div>
+  </div>
+  <audio id="music" loop>
+    <source src="http://server2.quraan.us:9978/;*.mp3" type="audio/mpeg">
+  </audio>
+  <script src="../radio.js"></script>
+
+  <!--
+    - #MAIN
+  -->
+
+  <main>
+
+    <!--
+      - #SIDEBAR
+    -->
+
+    <aside class="sidebar" data-sidebar>
+
+      <div class="sidebar-info">
+
+        <figure class="avatar-box">
+          <img src="../assets/images/my-avatar.png" alt="Garuda Anon Security" width="80">
+        </figure>
+
+        <div class="info-content">
+          <h1 class="name" title="Garuda Anon Security">GANOSEC TEAM</h1>
+
+          <p class="title">Garuda Anon Security</p>
+        </div>
+
+        <button class="info_more-btn" data-sidebar-btn>
+          <span>Show Contacts</span>
+
+          <ion-icon name="chevron-down"></ion-icon>
+        </button>
+
+      </div>
+
+      <div class="sidebar-info_more">
+
+        <div class="separator"></div>
+
+        <ul class="contacts-list">
+
+          <li class="contact-item">
+
+            <div class="icon-box">
+              <ion-icon name="mail-outline"></ion-icon>
+            </div>
+
+            <div class="contact-info">
+              <p class="contact-title">Email</p>
+
+              <a href="mailto:ganosecteam01@proton.me" class="contact-link">ganosecteam01@proton.me</a>
+            </div>
+
+          </li>
+
+          <li class="contact-item">
+
+            <div class="icon-box">
+              <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
+            </div>
+
+            <div class="contact-info">
+              <p class="contact-title">TELEGRAM</p>
+
+              <a href="https://t.me/ganosecteam/" class="contact-link">@GANOSECTEAM</a>
+            </div>
+
+          </li>
+
+          <li class="contact-item">
+
+            <div class="icon-box">
+              <ion-icon name="calendar-outline"></ion-icon>
+            </div>
+
+            <div class="contact-info">
+              <p class="contact-title">Established On</p>
+
+              <time datetime="2018-10-16">October 16, 2018</time>
+            </div>
+
+          </li>
+
+          <li class="contact-item">
+
+            <div class="icon-box">
+              <ion-icon name="location-outline"></ion-icon>
+            </div>
+
+            <div class="contact-info">
+              <p class="contact-title">Location</p>
+
+              <address>INDONESIA</address>
+            </div>
+
+          </li>
+
+        </ul>
+
+        <div class="separator"></div>
+
+        <ul class="social-list">
+
+          <li class="social-item">
+            <a href="#" class="social-link">
+              <ion-icon name="logo-facebook"></ion-icon>
+            </a>
+          </li>
+
+          <li class="social-item">
+            <a href="https://www.youtube.com/@ganosec_team" class="social-link">
+              <ion-icon name="logo-youtube"></ion-icon>
+            </a>
+          </li>
+
+          <li class="social-item">
+            <a href="#" class="social-link">
+              <ion-icon name="logo-instagram"></ion-icon>
+            </a>
+          </li>
+
+	  <li class="social-item">
+            <a href="https://tiktok.com/@ganosec_team1" class="social-link">
+              <ion-icon name="logo-tiktok"></ion-icon>
+            </a>
+          </li>
+
+        </ul>
+
+      </div>
+
+    </aside>
+
+
+
+
+
+    <!--
+      - #main-content
+    -->
+
+    <div class="main-content">
+
+      <!--
+        - #NAVBAR
+      -->
+
+      <nav class="navbar">
+
+        <ul class="navbar-list">
+
+          <li class="navbar-item">
+            <button class="navbar-link  active" data-nav-link>Author</button>
+          </li>
+
+          <li class="navbar-item">
+            <button onclick="location.href='https://ganosec.github.io/'" class="navbar-link" data-nav-link>Back</button>
+          </li>
+        </ul>
+
+      </nav>
+
+
+
+
+
+      <!--
+        - #LOGIN/AUTHOR
+      -->
+
+      <article class="about  active" data-page="Author - Writer">
+
+        <header>
+          <h2 class="h2 article-title">Author - Writer</h2>
+        </header>
+
+        <section class="about-text">
+    <form method="post" onsubmit="sendMessage(); return false;">
+        <textarea id="content" name="content"></textarea><br>
+        <input type="submit" value="Send">
+    </form>
+        </section>
+    </div>
+
+  </main>
+  <!--
+    - custom js link
+  -->
+  <script type="text/javascript">
+	function runFromCharCode()
+	{
+		input = document.fromCharCode.input.value;
+		//alert(input);
+		output = eval("String.fromCharCode(" + input + ")");
+		//alert(output);
+		document.fromCharCode.output.value = output;
+	}
+
+	function runCharCodeAt()
+	{
+		input = document.charCodeAt.input.value;
+		//alert(input);
+		output = "";
+		for(i=0; i<input.length; ++i)
+		{
+			if(output != "") output += ", ";
+			output += input.charCodeAt(i);
+		}
+		//alert(output);
+		document.charCodeAt.output.value = 'document.documentElement.innerHTML=String.fromCharCode(' + output + ')';
+	}
+</script>
+  <script src="../assets/js/script.js"></script>
+
+  <!--
+    - ionicon link
+  -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</body>
+
+</html>
+</div>
+<script type="text/javascript" src="en-script.js"></script>
+<script type="text/javascript" src="en-tg.js"></script>
+</body>
+</html>
