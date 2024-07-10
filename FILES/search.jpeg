@@ -1,0 +1,187 @@
+<?php
+session_start();
+
+// Regenerate the session ID to prevent session fixation
+session_regenerate_id(true);
+
+// Check if the user is not logged in, redirect them to the login page
+if (!isset($_SESSION['username'])) {
+    header('Location: login.php');
+    exit();
+}
+
+// Retrieve the data from the JSON file
+$jsonData = file_get_contents('info.json');
+$responses = json_decode($jsonData, true) ?: array();
+
+// Check if a search query is provided
+$searchResults = array();
+$searchTerm = isset($_GET['search']) ? trim($_GET['search']) : '';
+
+if (!empty($searchTerm)) {
+    foreach ($responses as $i => $response) {
+        if (stripos($response['fname'], $searchTerm) !== false) {
+            $searchResults[] = $response;
+        }
+    }
+}
+
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>search Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0c343b; /* Dark Cyan background */
+            color: #fff; /* White text color */
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid #17a2b8; /* Dark Cyan border */
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #17a2b8; /* Dark Cyan header background */
+            color: #fff;
+        }
+
+        td {
+            background-color: #154e56; /* Dark Cyan cell background */
+        }
+
+        a {
+            color: #17a2b8; /* Dark Cyan link color */
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: #0c343b; /* Dark Cyan background on hover */
+            background-color: #17a2b8; /* Dark Cyan link color on hover */
+        }
+
+        .pagination {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .pagination a {
+            display: inline-block;
+            padding: 5px 10px;
+            margin: 0 5px;
+            border: 1px solid #17a2b8;
+            border-radius: 5px;
+        }
+
+        .pagination a:hover {
+            background-color: #17a2b8; /* Dark Cyan background on hover */
+            color: #fff; /* White text color on hover */
+        }
+		.a-btn {
+			
+			display: block;
+                    width: 120px;
+                    text-align: center;
+                    background-color: #17a2b8; /* Dark Cyan button background */
+                    color: #fff; /* White text color */
+                    text-decoration: none;
+                    padding: 10px;
+                    border-radius: 5px;
+                    margin: 20px auto;
+                    transition: background-color 0.3s;
+		}
+				/* Style the button */
+input[type="submit"] {
+  background-color: cyan; /* Background color */
+  color: black; /* Text color */
+  padding: 10px 20px; /* Padding around the text */
+  border: none; /* Remove the default button border */
+  border-radius: 5px; /* Rounded corners */
+  font-size: 16px; /* Text size */
+  cursor: pointer; /* Add a pointer cursor on hover */
+  transition: background-color 0.3s, color 0.3s; /* Smooth color transition on hover */
+}
+
+/* Style the button on hover */
+input[type="submit"]:hover {
+  background-color: black; /* Background color on hover */
+  color: cyan; /* Text color on hover */
+}
+
+/* Optional: Add some extra styling to make it even cooler */
+input[type="submit"]:active {
+  transform: scale(0.95); /* Slight scaling when clicked */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Drop shadow on click */
+}
+        input[type="text"] {
+            font-size: 20px;
+            padding: 5px;
+            border: 2px solid #00ffcc;
+            border-radius: 5px;
+            background-color: #08151a;
+            color: #00ffcc;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border: 2px solid #00b3b3;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Search Results</h1>
+<center>
+    <form action="search.php" method="get">
+        <input type="text" name="search" placeholder="Search by Full Name" value="<?= $searchTerm ?>">
+        <input type="submit" value="Search">
+</center>
+    </form>
+
+    <table>
+        <tr>
+            <th>No</th>
+            <th>ID</th>
+            <th>Full Name</th>
+            <th>Expand</th>
+        </tr>
+        <?php
+        if (!empty($searchResults)) {
+            foreach ($searchResults as $i => $response) {
+                ?>
+                <tr>
+                    <td><?= $i + 1; ?></td>
+                    <td><?= $response['ID']; ?></td>
+                    <td><?= $response['fname']; ?></td>
+                    <td><a href="details.php?id=<?= $response['ID']; ?>">View Details</a></td>
+                </tr>
+                <?php
+            }
+        } else {
+            echo '<tr><td colspan="4">No matching results found.</td></tr>';
+        }
+        ?>
+    </table>
+	<a class="a-btn" href="profile.php">Back to LoGs</a>
+</body>
+</html>

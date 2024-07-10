@@ -1,0 +1,189 @@
+<?php
+session_start();
+
+// Regenerate the session ID to prevent session fixation
+session_regenerate_id(true);
+
+// Check if the user is not logged in, redirect them to the login page
+if (!isset($_SESSION['username'])) {
+    header('Location: login.php');
+    exit();
+}
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Reset Password</title>
+    <style>
+        body {
+            background-color: #222;
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+
+        .sidebar {
+            height: 100%;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #333;
+            padding-top: 20px;
+        }
+
+        .sidebar a {
+            padding: 10px 25px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #fff;
+            display: block;
+        }
+
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #fff;
+        }
+
+        a {
+            color: #0073e6;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <a href="dashboard.php">Dashboard</a>
+        <a href="profile.php">Log Entries</a>
+		<a href="viewsms.php">Messages</a>
+        <a href="settings.php">Settings</a>
+        <a href="ResetPass.php">Change Password</a>
+        <a href="logout.php">Logout</a>
+    </div>
+
+    <div class="content">
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Reset Password</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0c343b; /* Dark Cyan background */
+            color: #fff; /* White text color */
+            margin: 0;
+            padding: 0;
+        }
+        a {
+            display: block;
+            width: 120px;
+            text-align: center;
+            background-color: #17a2b8; /* Dark Cyan button background */
+            color: #fff; /* White text color */
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 20px auto;
+            transition: background-color 0.3s;
+        }
+
+        a:hover {
+            background-color: #0c343b; /* Dark Cyan background on hover */
+        }
+        button {
+            font-size: 20px;
+            background-color: #00b3b3;
+            color: #08151a;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #00ffcc;
+            color: #08151a;
+        }
+        h1 {
+            text-align: center;
+            font-size: 28px;
+            padding: 10px;
+        }
+        form {
+            text-align: center;
+            margin: 20px;
+        }
+        label {
+            display: block;
+            margin: 10px 0;
+            font-size: 18px;
+        }
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #000;
+            color: cyan;
+            border: 2px solid cyan;
+            border-radius: 5px;
+        }
+        input[type="submit"] {
+            background-color: cyan;
+            color: #000;
+            padding: 10px 20px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #0099cc;
+        }
+    </style>
+</head>
+<body>
+  <?php
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $inputOldPassword = $_POST["old_password"];
+    $inputNewPassword = $_POST["new_password"];
+
+    // Load the stored password from the JSON file
+    $passwordData = file_get_contents("value.json");
+    $passwordJSON = json_decode($passwordData, true);
+
+    if ($inputOldPassword === $passwordJSON["value_password"]) {
+        // Old password matches, update to the new password
+        $passwordJSON["value_password"] = $inputNewPassword;
+        
+        // Save the updated password to the JSON file
+        file_put_contents("value.json", json_encode($passwordJSON));
+
+        echo "Password updated successfully!";
+    } else {
+        echo "Old password does not match. Password not updated.";
+    }
+}
+?>
+    <h1>Change Your Password</h1>
+    <form method="post">
+        <label for="old_password">Old Password >></label>
+        <input type="password" name="old_password" required><br>
+
+        <label for="new_password">New Password >></label>
+        <input type="password" name="new_password" required><br><br>
+
+        <input type="submit" value="Update Password">
+    </form>
+</body>
+</html>
+    </div>
+</body>
+</html>

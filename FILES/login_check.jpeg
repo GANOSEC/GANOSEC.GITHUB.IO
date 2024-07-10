@@ -1,0 +1,26 @@
+<?php
+session_start();
+
+// Replace with your actual user data validation logic.
+$valid_username = "admin";
+
+// Read the valid password from value.json
+$value_file = 'value.json';
+$value_data = file_get_contents($value_file);
+$value_json = json_decode($value_data, true);
+$valid_password = $value_json['value_password'];
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $username = $_POST["username"];
+    $password = $_POST["password"];
+
+    if ($username == $valid_username && $password == $valid_password) {
+        // Set the user as logged in
+        $_SESSION['username'] = $username;
+        header('Location: dashboard.php');
+    } else {
+        // Invalid credentials, redirect back to login
+        header('Location: login.php');
+    }
+}
+?>

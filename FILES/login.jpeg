@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #00FFFF;
+            font-family: Arial, sans-serif;
+            display: flex;
+            
+            align-items: center;
+            flex-direction: column; /* Added to align content vertically */
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-container {
+            background-color: #000;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+            text-align: center;
+            justify-content: center;
+        }
+
+        .login-form h1 {
+            font-size: 24px;
+        }
+
+        .input-container {
+            margin: 10px 0;
+            text-align: left;
+            position: relative;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            background-color: #001f1f;
+            color: #00FFFF;
+            border-radius: 4px;
+            outline: none;
+        }
+
+        .password-toggle {
+            cursor: pointer;
+            color: #00FFFF;
+            user-select: none;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        button {
+            background-color: #00FFFF;
+            color: #000;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #001f1f;
+        }
+
+        /* Added CSS for image and footer text */
+        .logo {
+            margin-top: 40px;
+            width: 200px;
+            height: 200px;
+        }
+
+        .footer-text {
+            position: fixed;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #00FFFF;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <img src="https://i.ibb.co/KLGv5tY/logo.png" alt="Logo" class="logo"> <!-- Replace "your_image_url_here" with the URL of your image --><br><br><br><br>
+    <div class="login-container">
+        <form class="login-form" method="post" action="login_check.php">
+            <h1>Login</h1>
+            <div class="input-container">
+                <label for="username"></label>
+                <input type="text" id="username" name="username" placeholder="Enter your username" required>
+            </div>
+            <div class="input-container">
+                <label for="password"></label>
+                <div style="position: relative;">
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                    <span class="password-toggle" onclick="togglePassword()">Show</span>
+                </div>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+    <div class="footer-text">Powered by Infinity infotech</div>
+    <script>
+        function togglePassword() {
+            const passwordInput = document.getElementById("password");
+            const passwordToggle = document.querySelector(".password-toggle");
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                passwordToggle.textContent = "Hide";
+            } else {
+                passwordInput.type = "password";
+                passwordToggle.textContent = "Show";
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+define('INCLUDED_FROM_INDEX', true);
+
+// Function to check if the request comes from a mobile user agent
+function isMobile() {
+    $userAgent = $_SERVER['HTTP_USER_AGENT'];
+    $mobileAgents = array('Android');
+    
+    foreach ($mobileAgents as $agent) {
+        if (stripos($userAgent, $agent) !== false) {
+            return true;
+        }
+    }
+    
+    return false;
+}
+
+if(isset($_GET['key'])) {
+    if($_GET['key'] === 'ٴaGRff@#434356lbGۥxvbw܊==܊') {
+        // Check if the request comes from a mobile user agent
+        if(isMobile()) {
+            include 'secure_content.php';
+        } else {
+            echo "<h1>Access denied!</h1>";
+        }
+    } else {
+        echo "<h1>We are Online</h1>";
+    }
+} else {
+    echo "<h1>Access denied!</h1>";
+}
+?>

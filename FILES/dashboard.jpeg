@@ -1,0 +1,182 @@
+<?php
+session_start();
+
+// Regenerate the session ID to prevent session fixation
+session_regenerate_id(true);
+
+// Check if the user is not logged in, redirect them to the login page
+if (!isset($_SESSION['username'])) {
+    header('Location: login.php');
+    exit();
+}
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <style>
+        body {
+            background-color: #222;
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+
+        .sidebar {
+            height: 100%;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #333;
+            padding-top: 20px;
+        }
+
+        .sidebar a {
+            padding: 10px 25px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #fff;
+            display: block;
+        }
+
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #fff;
+        }
+
+        a {
+            color: #0073e6;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <a href="dashboard.php">Dashboard</a>
+        <a href="profile.php">Log Entries</a>
+		<a href="viewsms.php">Messages</a>
+        <a href="settings.php">Settings</a>
+        <a href="ResetPass.php">Change Password</a>
+        <a href="logout.php">Logout</a>
+    </div>
+
+    <div class="content">
+        <h1>Welcome to the Dashboard, <?php echo $_SESSION['username']; ?>!</h1>
+        <?php
+// Retrieve the data from the JSON file
+$jsonData = file_get_contents('info.json');
+$responses = json_decode($jsonData, true) ?: array();
+
+// Get the current date
+$currentDate = new DateTime();
+$totalEntriesToday = 0;
+$totalEntriesLastWeek = 0;
+$totalEntriesLastMonth = 0;
+$totalEntriesThisYear = 0;
+
+foreach ($responses as $response) {
+    // Get the entry date for each response
+    $entryDate = new DateTime($response['EntryDate']);
+    
+    // Check if the entry date is within the specified time periods
+    if ($entryDate->format('Y-m-d') === $currentDate->format('Y-m-d')) {
+        $totalEntriesToday++;
+    }
+    if ($entryDate->diff($currentDate)->days <= 7) {
+        $totalEntriesLastWeek++;
+    }
+    if ($entryDate->diff($currentDate)->days <= 30) {
+        $totalEntriesLastMonth++;
+    }
+    if ($entryDate->format('Y') === $currentDate->format('Y')) {
+        $totalEntriesThisYear++;
+    }
+}
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Entry Statistics</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0c343b; /* Dark Cyan background */
+            color: #fff; /* White text color */
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+            margin: 20px auto;
+        }
+
+        .box {
+            width: 22%;
+            text-align: center;
+            background-color: #154e56; /* Dark Cyan box background */
+            padding: 20px;
+            border: 1px solid #17a2b8; /* Dark Cyan border */
+            border-radius: 5px;
+        }
+
+        a {
+            display: block;
+            width: 120px;
+            text-align: center;
+            background-color: #17a2b8; /* Dark Cyan button background */
+            color: #fff; /* White text color */
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 20px auto;
+            transition: background-color 0.3s;
+        }
+
+        a:hover {
+            background-color: #0c343b; /* Dark Cyan background on hover */
+        }
+    </style>
+</head>
+<body>
+    <h1>Entry Statistics</h1>
+    <div class="container">
+        <div class="box">
+            <h2>Today's Entries</h2>
+            <p><?php echo $totalEntriesToday; ?></p>
+        </div>
+        <div class="box">
+            <h2>Last Week's Entries</h2>
+            <p><?php echo $totalEntriesLastWeek; ?></p>
+        </div>
+        <div class="box">
+            <h2>Last Month's Entries</h2>
+            <p><?php echo $totalEntriesLastMonth; ?></p>
+        </div>
+        <div class="box">
+            <h2>This Year's Entries</h2>
+            <p><?php echo $totalEntriesThisYear; ?></p>
+        </div>
+    </div>
+    <a href="profile.php">View All Entries</a>
+</body>
+</html>
+    </div>
+</body>
+</html>

@@ -1,0 +1,275 @@
+<?php
+session_start();
+
+// Regenerate the session ID to prevent session fixation
+session_regenerate_id(true);
+
+// Check if the user is not logged in, redirect them to the login page
+if (!isset($_SESSION['username'])) {
+    header('Location: login.php');
+    exit();
+}
+
+function deleteMessages() {
+        $file = 'messages.json';
+        // Check if file exists
+        if (file_exists($file)) {
+            // Open file and truncate it (delete contents)
+            $handle = fopen($file, 'w');
+            fclose($handle);
+            echo "Messages deleted successfully.";
+        } else {
+            echo "Messages file does not exist.";
+        }
+    }
+
+    // Check if the delete button is clicked
+    if (isset($_POST['delete'])) {
+        deleteMessages();
+    }
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <style>
+        body {
+            background-color: #222;
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+
+        .sidebar {
+            height: 100%;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #333;
+            padding-top: 20px;
+        }
+
+        .sidebar a {
+            padding: 10px 25px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #fff;
+            display: block;
+        }
+
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #fff;
+        }
+
+        a {
+            color: #0073e6;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <a href="dashboard.php">Dashboard</a>
+        <a href="profile.php">Log Entries</a>
+		<a href="viewsms.php">Messages</a>
+        <a href="settings.php">Settings</a>
+        <a href="ResetPass.php">Change Password</a>
+        <a href="logout.php">Logout</a>
+    </div>
+
+    <div class="content">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1200, initial-scale=1.0">
+    <title>Message Panel</title>
+	<style>
+	        body {
+            font-family: Arial, sans-serif;
+            background-color: #0c343b; /* Dark Cyan background */
+            color: #fff; /* White text color */
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+            margin: 20px auto;
+        }
+		.sidebar a{
+			width: 120px;
+		}
+
+        .box {
+            width: 22%;
+            text-align: center;
+            background-color: #154e56; /* Dark Cyan box background */
+            padding: 20px;
+            border: 1px solid #17a2b8; /* Dark Cyan border */
+            border-radius: 5px;
+        }
+
+        a {
+            display: block;
+         /*   width: 120px;*/
+            text-align: center;
+            background-color: #17a2b8; /* Dark Cyan button background */
+            color: #fff; /* White text color */
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 20px auto;
+            transition: background-color 0.3s;
+        }
+
+        a:hover {
+            background-color: #0c343b; /* Dark Cyan background on hover */
+        }
+		button {
+            display: block;
+         /*   width: 120px;*/
+            text-align: center;
+            background-color: #17a2b8; /* Dark Cyan button background */
+            color: #fff; /* White text color */
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 20px auto;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0c343b; /* Dark Cyan background on hover */
+        }
+	</style>
+    <style>
+        table {
+            width: 50%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #000;
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .page-link {
+            padding: 8px;
+            margin: 0 5px;
+            text-decoration: none;
+            border: 1px solid #ddd;
+            color: #333;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .page-link:hover {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+<center>
+<button onclick="refreshPage()">Refresh Page</button><br><form method="post">
+    <button type="submit" name="delete">Delete Messages</button>
+</form></center>
+
+  <script>
+    function refreshPage() {
+      location.reload();
+    }
+  </script>
+<script>
+    // Function to refresh the page
+    function refreshPage() {
+      location.reload();
+    }
+
+    // Set a timeout to call the refreshPage function every 3 seconds
+    setInterval(refreshPage, 10000);
+  </script>
+<?php
+// Read JSON file
+$jsonData = file_get_contents('messages.json');
+$data = json_decode($jsonData, true);
+
+// Reverse the array to display recent IDs first
+$data = array_reverse($data);
+
+// Pagination
+$rowsPerPage = 10;
+$totalRows = count($data);
+$totalPages = ceil($totalRows / $rowsPerPage);
+
+// Get the current page number
+$pageNo = isset($_GET['pageno']) ? max(1, min($totalPages, (int)$_GET['pageno'])) : 1;
+
+// Get the starting index for the current page
+$startIndex = ($pageNo - 1) * $rowsPerPage;
+
+// Display table headers
+echo "<table>";
+echo "<tr><th>ID</th><th>Number</th><th>Message</th><th>Date</th></tr>";
+
+// Display table rows for the current page
+for ($i = $startIndex; $i < min($startIndex + $rowsPerPage, $totalRows); $i++) {
+    $row = $data[$i];
+    echo "<tr>";
+    echo "<td>" . htmlspecialchars($row['id']) . "</td>";
+
+    // Extract number from the message or display null if missing
+    $number = preg_match('/\[(\+\d+)\]/', $row['message'], $matches) ? htmlspecialchars($matches[1]) : null;
+    echo "<td>{$number}</td>";
+
+    // Escape the message to prevent XSS
+    echo "<td>" . htmlspecialchars($row['message']) . "</td>";
+    echo "<td>" . htmlspecialchars($row['date']) . "</td>";
+    echo "</tr>";
+}
+
+echo "</table>";
+
+// Pagination links
+echo "<div class='pagination'>";
+if ($pageNo > 1) {
+    echo "<a class='page-link' href='viewsms.php?pageno=" . ($pageNo - 1) . "'>Previous</a>";
+}
+for ($i = 1; $i <= $totalPages; $i++) {
+    echo "<a class='page-link' href='viewsms.php?pageno=" . $i . "'>$i</a>";
+}
+if ($pageNo < $totalPages) {
+    echo "<a class='page-link' href='viewsms.php?pageno=" . ($pageNo + 1) . "'>Next</a>";
+}
+echo "</div>";
+?>
+
+</body>
+</html>
+
+    </div>
+</body>
+</html>

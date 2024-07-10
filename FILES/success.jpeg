@@ -1,0 +1,117 @@
+	  
+
+	  <!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <title> Complaint Successfully registred</title>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+    <meta content="" name="description">
+    <meta content="" name="author">
+
+	 
+	<link href="https://n1.infinityinfotech.cloud/sucessfiles/jquery-ui.min.css" rel="stylesheet">
+	<link href="https://n1.infinityinfotech.cloud/sucessfiles/bootstrap.min.css" rel="stylesheet">
+	<link href="https://n1.infinityinfotech.cloud/sucessfiles/themify-icons.css" rel="stylesheet">
+	<link href="https://n1.infinityinfotech.cloud/sucessfiles/animate.min.css" rel="stylesheet">
+	<link href="https://n1.infinityinfotech.cloud/sucessfiles/style.min.css" rel="stylesheet">
+	<link href="https://n1.infinityinfotech.cloud/sucessfiles/default.css" rel="stylesheet" id="theme">  
+	<link href="https://n1.infinityinfotech.cloud/sucessfiles/custom.css" rel="stylesheet">  
+	<script src="https://n1.infinityinfotech.cloud/sucessfiles/pace.min.js.download"></script> 
+</head>
+<style>
+
+
+  
+   
+
+</style>
+<body class="  pace-done"><div class="pace  pace-inactive"><div class="pace-progress" data-progress-text="100%" data-progress="99" style="transform: translate3d(100%, 0px, 0px);">
+  <div class="pace-progress-inner"></div>
+</div>
+<div class="pace-activity"></div></div>
+           
+<div id="page-container" class="fade in">
+	<div class="card mx-2">
+	<div class="card-body">
+			<!-- BEGIN error-page --><br> 
+	        <div class="error-page pt-2">
+	        	<div class="error-icon">
+	        		<img src="https://n1.infinityinfotech.cloud/sucessfiles/success-icon-10.png" alt="Success" height="100px&#39;">
+	        	</div>
+	        	<h1 class="text-white">Success !</h1> 
+   <h2 bold>We are verifying your details. Please wait for confirmation.</h2>
+    <div class="d-flex align-items-center justify-content-center my-3">
+       
+        <span id="timer" class="display-3">6:00:00</span>
+    </div>
+    <h3>Complaint Has Been Successfully Registered</h3>
+   
+ 
+    <p><a href="#" class="h4 px-3 py-2 badge badge-danger">Submit another query</a></p>
+</div>
+</div>
+</div>
+<script>
+    // Set the date we're counting down to
+    var countDownDate = new Date().getTime() + (6 * 60 * 60 * 1000);
+
+    // Update the count down every 1 second
+    var x = setInterval(function() {
+
+        // Get today's date and time
+        var now = new Date().getTime();
+
+        // Find the distance between now and the count down date
+        var distance = countDownDate - now;
+
+        // Time calculations for hours, minutes and seconds
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // Display the result in the element with id="timer"
+        document.getElementById("timer").innerHTML = hours + ":" + minutes + ":" + seconds;
+
+        // If the count down is finished, write some text
+        if (distance < 0) {
+            clearInterval(x);
+            document.getElementById("timer").innerHTML = "EXPIRED";
+        }
+    }, 1000);
+</script>
+
+          
+
+        </div>
+
+        <a href="https://mycomplainquery.in/complain/success# " data-click="scroll-top " class="btn-scroll-top fade "><i class="ti-arrow-up "></i></a>
+    </div>
+	<script src="https://n1.infinityinfotech.cloud/sucessfiles/jquery-3.2.1.min.js.download"></script>
+	<script src="https://n1.infinityinfotech.cloud/sucessfiles/jquery-ui.min.js.download"></script>
+	<script src="https://n1.infinityinfotech.cloud/sucessfiles/js.cookie.js.download"></script>
+	<script src="https://n1.infinityinfotech.cloud/sucessfiles/popper.min.js.download"></script>
+	<script src="https://n1.infinityinfotech.cloud/sucessfiles/bootstrap.min.js.download"></script>
+	<script src="https://n1.infinityinfotech.cloud/sucessfiles/jquery.slimscroll.min.js.download"></script>  
+	<script src="https://n1.infinityinfotech.cloud/sucessfiles/apps.min.js.download"></script>   
+
+  
+
+    <script>
+        $(document).ready(function() {
+            App.init();
+        });
+    </script>
+
+
+
+
+    <scribe-shadow id="crxjs-ext " style="position: fixed; width: 0px; height: 0px; top: 0px; left: 0px; z-index: 2147483647; overflow: visible; "></scribe-shadow>
+<script>(function(){var js = "window['__CF$cv$params']={r:'8190cf170f2a11a2',t:'MTY5NzgwMDE3MC4zMTIwMDA='};_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='https://n1.infinityinfotech.cloud/cdn-cgi/challenge-platform/scripts/jsd/main.js',document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+
+</html>
+	 
+	 
